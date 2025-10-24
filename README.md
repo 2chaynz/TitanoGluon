@@ -3,8 +3,9 @@
 My submission for the **Titanic Challenge** on Kaggle, where I explored two ML models: **AutoGluon** and **Random Forest**.
 
 -  **Best result:** 0.78947 on Kaggle with AutoGluon  
--  **Rank:** 1303rd out of 14,661 participants  
--  Includes: commented scripts, outputs, CSV files, and a **Typst** document summarizing my notes and learnings.
+-  **Rank:** 1303rd out of 14,661 participants
+- Data preprocessing, feature engineering, various encoding techniques, and hyperparameter optimization.-
+- Includes: commented scripts, outputs, CSV files, and a **Typst** document summarizing my notes and learnings.
 
 ---
 
