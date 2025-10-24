@@ -11,3 +11,4 @@ My submission for the **Titanic Challenge** on Kaggle, where I explored two ML m
 <p align="center">
   <img src="https://github.com/user-attachments/assets/1f268aff-2742-4c6a-a4f7-c141956fa38d" alt="Titanic Challenge Results" width="450">
 </p>
+<p align="center"><em>HTML output of performances from the AutoGluon script</em></p>
