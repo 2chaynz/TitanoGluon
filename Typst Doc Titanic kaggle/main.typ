@@ -249,8 +249,6 @@ La *moyenne harmonique* pénalise fortement les déséquilibres :
 - Si une métrique est mauvaise → F1 est tiré vers le bas
 - Mais F1 ne résout pas complètement le problème des classes déséquilibrées
 
-#pagebreak()
-
 = AutoGluon : Bagging et Stacking
 
 == Bagging et num_bag_folds
