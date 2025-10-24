@@ -1,0 +1,284 @@
+# NB : I ran the code on Google Colab
+
+Verbosity: 2 (Standard Logging)
+=================== System Info ===================
+AutoGluon Version:  1.4.0
+Python Version:     3.12.12
+Operating System:   Linux
+Platform Machine:   x86_64
+Platform Version:   #1 SMP Thu Oct  2 10:42:05 UTC 2025
+CPU Count:          2
+Memory Avail:       11.36 GB / 12.67 GB (89.7%)
+Disk Space Avail:   61.63 GB / 107.72 GB (57.2%)
+===================================================
+Presets specified: ['medium_quality']
+Using hyperparameters preset: hyperparameters='default'
+Beginning AutoGluon training ... Time limit = 600s
+AutoGluon will save models to "/content/autogluon_models"
+Train Data Rows:    891
+Train Data Columns: 11
+Label Column:       Survived
+AutoGluon infers your prediction problem is: 'binary' (because only two unique label-values observed).
+	2 unique label values:  [np.int64(0), np.int64(1)]
+	If 'binary' is not the correct problem_type, please manually specify the problem_type parameter during Predictor init (You may specify problem_type as one of: ['binary', 'multiclass', 'regression', 'quantile'])
+Problem Type:       binary
+Preprocessing data ...
+Selected class <--> label mapping:  class 1 = 1, class 0 = 0
+Using Feature Generators to preprocess the data ...
+Fitting AutoMLPipelineFeatureGenerator...
+	Available Memory:                    11639.17 MB
+	Train Data (Original)  Memory Usage: 0.27 MB (0.0% of available memory)
+	Inferring data type of each feature based on column values. Set feature_metadata_in to manually specify special dtypes of the features.
+	Stage 1 Generators:
+		Fitting AsTypeFeatureGenerator...
+			Note: Converting 1 features to boolean dtype as they only contain 2 unique values.
+	Stage 2 Generators:
+		Fitting FillNaFeatureGenerator...
+	Stage 3 Generators:
+		Fitting IdentityFeatureGenerator...
+		Fitting CategoryFeatureGenerator...
+			Fitting CategoryMemoryMinimizeFeatureGenerator...
+		Fitting TextSpecialFeatureGenerator...
+			Fitting BinnedFeatureGenerator...
+			Fitting DropDuplicatesFeatureGenerator...
+		Fitting TextNgramFeatureGenerator...
+			Fitting CountVectorizer for text features: ['Name']
+			CountVectorizer fit with vocabulary size = 8
+	Stage 4 Generators:
+		Fitting DropUniqueFeatureGenerator...
+	Stage 5 Generators:
+		Fitting DropDuplicatesFeatureGenerator...
+	Types of features in original data (raw dtype, special dtypes):
+		('float', [])        : 2 | ['Age', 'Fare']
+		('int', [])          : 4 | ['PassengerId', 'Pclass', 'SibSp', 'Parch']
+		('object', [])       : 4 | ['Sex', 'Ticket', 'Cabin', 'Embarked']
+		('object', ['text']) : 1 | ['Name']
+	Types of features in processed data (raw dtype, special dtypes):
+		('category', [])                    : 3 | ['Ticket', 'Cabin', 'Embarked']
+		('float', [])                       : 2 | ['Age', 'Fare']
+		('int', [])                         : 4 | ['PassengerId', 'Pclass', 'SibSp', 'Parch']
+		('int', ['binned', 'text_special']) : 9 | ['Name.char_count', 'Name.word_count', 'Name.capital_ratio', 'Name.lower_ratio', 'Name.special_ratio', ...]
+		('int', ['bool'])                   : 1 | ['Sex']
+		('int', ['text_ngram'])             : 9 | ['__nlp__.henry', '__nlp__.john', '__nlp__.master', '__nlp__.miss', '__nlp__.mr', ...]
+	0.4s = Fit runtime
+	11 features in original data used to generate 28 features in processed data.
+	Train Data (Processed) Memory Usage: 0.07 MB (0.0% of available memory)
+Data preprocessing and feature engineering runtime = 0.45s ...
+AutoGluon will gauge predictive performance using evaluation metric: 'roc_auc'
+	This metric expects predicted probabilities rather than predicted class labels, so you'll need to use predict_proba() instead of predict()
+	To change this, specify the eval_metric parameter of Predictor()
+Automatically generating train/validation split with holdout_frac=0.2, Train Rows: 712, Val Rows: 179
+User-specified model hyperparameters to be fit:
+{
+	'NN_TORCH': [{}],
+	'GBM': [{'extra_trees': True, 'ag_args': {'name_suffix': 'XT'}}, {}, {'learning_rate': 0.03, 'num_leaves': 128, 'feature_fraction': 0.9, 'min_data_in_leaf': 3, 'ag_args': {'name_suffix': 'Large', 'priority': 0, 'hyperparameter_tune_kwargs': None}}],
+	'CAT': [{}],
+	'XGB': [{}],
+	'FASTAI': [{}],
+	'RF': [{'criterion': 'gini', 'ag_args': {'name_suffix': 'Gini', 'problem_types': ['binary', 'multiclass']}}, {'criterion': 'entropy', 'ag_args': {'name_suffix': 'Entr', 'problem_types': ['binary', 'multiclass']}}, {'criterion': 'squared_error', 'ag_args': {'name_suffix': 'MSE', 'problem_types': ['regression', 'quantile']}}],
+	'XT': [{'criterion': 'gini', 'ag_args': {'name_suffix': 'Gini', 'problem_types': ['binary', 'multiclass']}}, {'criterion': 'entropy', 'ag_args': {'name_suffix': 'Entr', 'problem_types': ['binary', 'multiclass']}}, {'criterion': 'squared_error', 'ag_args': {'name_suffix': 'MSE', 'problem_types': ['regression', 'quantile']}}],
+}
+Fitting 11 L1 models, fit_strategy="sequential" ...
+Fitting model: LightGBMXT ... Training model for up to 599.55s of the 599.55s of remaining time.
+	Fitting with cpus=1, gpus=0, mem=0.0/11.2 GB
+	0.8303	 = Validation score   (roc_auc)
+	9.52s	 = Training   runtime
+	0.01s	 = Validation runtime
+Fitting model: LightGBM ... Training model for up to 590.01s of the 590.01s of remaining time.
+	Fitting with cpus=1, gpus=0, mem=0.0/11.1 GB
+	0.8377	 = Validation score   (roc_auc)
+	0.54s	 = Training   runtime
+	0.01s	 = Validation runtime
+Fitting model: RandomForestGini ... Training model for up to 589.46s of the 589.46s of remaining time.
+	Fitting with cpus=2, gpus=0
+	0.8258	 = Validation score   (roc_auc)
+	1.51s	 = Training   runtime
+	0.1s	 = Validation runtime
+Fitting model: RandomForestEntr ... Training model for up to 587.81s of the 587.81s of remaining time.
+	Fitting with cpus=2, gpus=0
+	0.8283	 = Validation score   (roc_auc)
+	1.01s	 = Training   runtime
+	0.09s	 = Validation runtime
+Fitting model: CatBoost ... Training model for up to 586.69s of the 586.69s of remaining time.
+	Fitting with cpus=1, gpus=0
+	0.8713	 = Validation score   (roc_auc)
+	1.95s	 = Training   runtime
+	0.0s	 = Validation runtime
+Fitting model: ExtraTreesGini ... Training model for up to 584.73s of the 584.73s of remaining time.
+	Fitting with cpus=2, gpus=0
+	0.8249	 = Validation score   (roc_auc)
+	0.82s	 = Training   runtime
+	0.09s	 = Validation runtime
+Fitting model: ExtraTreesEntr ... Training model for up to 583.80s of the 583.80s of remaining time.
+	Fitting with cpus=2, gpus=0
+	0.8282	 = Validation score   (roc_auc)
+	0.85s	 = Training   runtime
+	0.1s	 = Validation runtime
+Fitting model: NeuralNetFastAI ... Training model for up to 582.82s of the 582.81s of remaining time.
+	Fitting with cpus=1, gpus=0, mem=0.0/11.0 GB
+	0.8765	 = Validation score   (roc_auc)
+	2.47s	 = Training   runtime
+	0.02s	 = Validation runtime
+Fitting model: XGBoost ... Training model for up to 580.31s of the 580.31s of remaining time.
+	Fitting with cpus=1, gpus=0
+	0.8165	 = Validation score   (roc_auc)
+	0.74s	 = Training   runtime
+	0.01s	 = Validation runtime
+Fitting model: NeuralNetTorch ... Training model for up to 579.55s of the 579.54s of remaining time.
+	Fitting with cpus=1, gpus=0, mem=0.0/11.0 GB
+	0.8901	 = Validation score   (roc_auc)
+	9.68s	 = Training   runtime
+	0.02s	 = Validation runtime
+Fitting model: LightGBMLarge ... Training model for up to 569.84s of the 569.84s of remaining time.
+	Fitting with cpus=1, gpus=0, mem=0.0/11.0 GB
+	0.8199	 = Validation score   (roc_auc)
+	0.93s	 = Training   runtime
+	0.01s	 = Validation runtime
+Fitting model: WeightedEnsemble_L2 ... Training model for up to 360.00s of the 568.88s of remaining time.
+	Ensemble Weights: {'NeuralNetTorch': 0.957, 'LightGBM': 0.043}
+	0.8905	 = Validation score   (roc_auc)
+	0.07s	 = Training   runtime
+	0.0s	 = Validation runtime
+AutoGluon training complete, total runtime = 31.22s ... Best model: WeightedEnsemble_L2 | Estimated inference throughput: 7836.2 rows/s (179 batch size)
+TabularPredictor saved. To load, use: predictor = TabularPredictor.load("/content/autogluon_models")
+Computing feature importance via permutation shuffling for 11 features using 891 rows with 5 shuffle sets...
+	4.31s	= Expected runtime (0.86s per shuffle set)
+
+============================================================
+CLASSEMENT DES MODÈLES
+============================================================
+                  model  score_test  score_val eval_metric  pred_time_test  \
+0      RandomForestEntr    0.977111   0.828327     roc_auc        0.106446   
+1      RandomForestGini    0.976555   0.825823     roc_auc        0.113880   
+2        ExtraTreesGini    0.976132   0.824901     roc_auc        0.114597   
+3        ExtraTreesEntr    0.976102   0.828195     roc_auc        0.123466   
+4         LightGBMLarge    0.973588   0.819895     roc_auc        0.015082   
+5   WeightedEnsemble_L2    0.955523   0.890514     roc_auc        0.033282   
+6        NeuralNetTorch    0.954196   0.890119     roc_auc        0.023202   
+7               XGBoost    0.945081   0.816535     roc_auc        0.020825   
+8       NeuralNetFastAI    0.942378   0.876548     roc_auc        0.033804   
+9              CatBoost    0.941606   0.871278     roc_auc        0.007957   
+10             LightGBM    0.938421   0.837681     roc_auc        0.007579   
+11           LightGBMXT    0.922517   0.830303     roc_auc        0.012430   
+
+    pred_time_val   fit_time  pred_time_test_marginal  pred_time_val_marginal  \
+0        0.089468   1.008750                 0.106446                0.089468   
+1        0.101521   1.512228                 0.113880                0.101521   
+2        0.088923   0.820775                 0.114597                0.088923   
+3        0.100633   0.849919                 0.123466                0.100633   
+4        0.005488   0.932121                 0.015082                0.005488   
+5        0.022843  10.277859                 0.002501                0.000646   
+6        0.016704   9.675020                 0.023202                0.016704   
+7        0.007794   0.743881                 0.020825                0.007794   
+8        0.015804   2.470395                 0.033804                0.015804   
+9        0.004809   1.948542                 0.007957                0.004809   
+10       0.005492   0.536169                 0.007579                0.005492   
+11       0.006751   9.519198                 0.012430                0.006751   
+
+    fit_time_marginal  stack_level  can_infer  fit_order  
+0            1.008750            1       True          4  
+1            1.512228            1       True          3  
+2            0.820775            1       True          6  
+3            0.849919            1       True          7  
+4            0.932121            1       True         11  
+5            0.066670            2       True         12  
+6            9.675020            1       True         10  
+7            0.743881            1       True          9  
+8            2.470395            1       True          8  
+9            1.948542            1       True          5  
+10           0.536169            1       True          2  
+11           9.519198            1       True          1  
+	2.06s	= Actual runtime (Completed 5 of 5 shuffle sets)
+
+============================================================
+IMPORTANCE DES FEATURES (Top 10)
+============================================================
+             importance    stddev       p_value  n  p99_high   p99_low
+Sex            0.104434  0.006951  2.341638e-06  5  0.118747  0.090122
+Ticket         0.078038  0.003918  7.598883e-07  5  0.086105  0.069971
+Name           0.067558  0.005466  5.097016e-06  5  0.078812  0.056304
+Pclass         0.043723  0.003341  4.058057e-06  5  0.050602  0.036845
+SibSp          0.035904  0.003125  6.817195e-06  5  0.042338  0.029469
+Age            0.025113  0.003930  6.967771e-05  5  0.033205  0.017021
+Parch          0.023320  0.001488  1.976627e-06  5  0.026384  0.020257
+Cabin          0.019508  0.001704  6.912542e-06  5  0.023016  0.016000
+PassengerId    0.007778  0.000908  2.189630e-05  5  0.009648  0.005908
+Embarked       0.007675  0.000861  1.866131e-05  5  0.009447  0.005903
+
+============================================================
+MEILLEUR MODÈLE: WeightedEnsemble_L2
+============================================================
+
+Résumé de l'entraînement:
+*** Summary of fit() ***
+Estimated performance of each model:
+                  model  score_val eval_metric  pred_time_val   fit_time  pred_time_val_marginal  fit_time_marginal  stack_level  can_infer  fit_order
+0   WeightedEnsemble_L2   0.890514     roc_auc       0.022843  10.277859                0.000646           0.066670            2       True         12
+1        NeuralNetTorch   0.890119     roc_auc       0.016704   9.675020                0.016704           9.675020            1       True         10
+2       NeuralNetFastAI   0.876548     roc_auc       0.015804   2.470395                0.015804           2.470395            1       True          8
+3              CatBoost   0.871278     roc_auc       0.004809   1.948542                0.004809           1.948542            1       True          5
+4              LightGBM   0.837681     roc_auc       0.005492   0.536169                0.005492           0.536169            1       True          2
+5            LightGBMXT   0.830303     roc_auc       0.006751   9.519198                0.006751           9.519198            1       True          1
+6      RandomForestEntr   0.828327     roc_auc       0.089468   1.008750                0.089468           1.008750            1       True          4
+7        ExtraTreesEntr   0.828195     roc_auc       0.100633   0.849919                0.100633           0.849919            1       True          7
+8      RandomForestGini   0.825823     roc_auc       0.101521   1.512228                0.101521           1.512228            1       True          3
+9        ExtraTreesGini   0.824901     roc_auc       0.088923   0.820775                0.088923           0.820775            1       True          6
+10        LightGBMLarge   0.819895     roc_auc       0.005488   0.932121                0.005488           0.932121            1       True         11
+11              XGBoost   0.816535     roc_auc       0.007794   0.743881                0.007794           0.743881            1       True          9
+Number of models trained: 12
+Types of models trained:
+{'XTModel', 'TabularNeuralNetTorchModel', 'RFModel', 'CatBoostModel', 'LGBModel', 'WeightedEnsembleModel', 'XGBoostModel', 'NNFastAiTabularModel'}
+Bagging used: False 
+Multi-layer stack-ensembling used: False 
+Feature Metadata (Processed):
+(raw dtype, special dtypes):
+('category', [])                    : 3 | ['Ticket', 'Cabin', 'Embarked']
+('float', [])                       : 2 | ['Age', 'Fare']
+('int', [])                         : 4 | ['PassengerId', 'Pclass', 'SibSp', 'Parch']
+('int', ['binned', 'text_special']) : 9 | ['Name.char_count', 'Name.word_count', 'Name.capital_ratio', 'Name.lower_ratio', 'Name.special_ratio', ...]
+('int', ['bool'])                   : 1 | ['Sex']
+('int', ['text_ngram'])             : 9 | ['__nlp__.henry', '__nlp__.john', '__nlp__.master', '__nlp__.miss', '__nlp__.mr', ...]
+Plot summary of models saved to file: /content/autogluon_models/SummaryOfModels.html
+*** End of fit() summary ***
+{'model_types': {'LightGBMXT': 'LGBModel', 'LightGBM': 'LGBModel', 'RandomForestGini': 'RFModel', 'RandomForestEntr': 'RFModel', 'CatBoost': 'CatBoostModel', 'ExtraTreesGini': 'XTModel', 'ExtraTreesEntr': 'XTModel', 'NeuralNetFastAI': 'NNFastAiTabularModel', 'XGBoost': 'XGBoostModel', 'NeuralNetTorch': 'TabularNeuralNetTorchModel', 'LightGBMLarge': 'LGBModel', 'WeightedEnsemble_L2': 'WeightedEnsembleModel'}, 'model_performance': {'LightGBMXT': np.float64(0.8303030303030302), 'LightGBM': np.float64(0.83768115942029), 'RandomForestGini': np.float64(0.8258234519104084), 'RandomForestEntr': np.float64(0.82832674571805), 'CatBoost': np.float64(0.8712779973649538), 'ExtraTreesGini': np.float64(0.824901185770751), 'ExtraTreesEntr': np.float64(0.8281949934123848), 'NeuralNetFastAI': np.float64(0.8765480895915678), 'XGBoost': np.float64(0.8165349143610015), 'NeuralNetTorch': np.float64(0.8901185770750988), 'LightGBMLarge': np.float64(0.8198945981554677), 'WeightedEnsemble_L2': np.float64(0.8905138339920948)}, 'model_best': 'WeightedEnsemble_L2', 'model_paths': {'LightGBMXT': ['LightGBMXT'], 'LightGBM': ['LightGBM'], 'RandomForestGini': ['RandomForestGini'], 'RandomForestEntr': ['RandomForestEntr'], 'CatBoost': ['CatBoost'], 'ExtraTreesGini': ['ExtraTreesGini'], 'ExtraTreesEntr': ['ExtraTreesEntr'], 'NeuralNetFastAI': ['NeuralNetFastAI'], 'XGBoost': ['XGBoost'], 'NeuralNetTorch': ['NeuralNetTorch'], 'LightGBMLarge': ['LightGBMLarge'], 'WeightedEnsemble_L2': ['WeightedEnsemble_L2']}, 'model_fit_times': {'LightGBMXT': 9.519197702407837, 'LightGBM': 0.5361688137054443, 'RandomForestGini': 1.512228012084961, 'RandomForestEntr': 1.0087504386901855, 'CatBoost': 1.9485416412353516, 'ExtraTreesGini': 0.8207745552062988, 'ExtraTreesEntr': 0.8499188423156738, 'NeuralNetFastAI': 2.470395088195801, 'XGBoost': 0.7438809871673584, 'NeuralNetTorch': 9.675020217895508, 'LightGBMLarge': 0.9321212768554688, 'WeightedEnsemble_L2': 0.06666970252990723}, 'model_pred_times': {'LightGBMXT': 0.006750822067260742, 'LightGBM': 0.005491971969604492, 'RandomForestGini': 0.10152125358581543, 'RandomForestEntr': 0.08946776390075684, 'CatBoost': 0.004809141159057617, 'ExtraTreesGini': 0.08892250061035156, 'ExtraTreesEntr': 0.10063338279724121, 'NeuralNetFastAI': 0.015804290771484375, 'XGBoost': 0.007794380187988281, 'NeuralNetTorch': 0.016704320907592773, 'LightGBMLarge': 0.005487918853759766, 'WeightedEnsemble_L2': 0.0006463527679443359}, 'num_bag_folds': 0, 'max_stack_level': 2, 'num_classes': 2, 'model_hyperparams': {'LightGBMXT': {'learning_rate': 0.05, 'extra_trees': True}, 'LightGBM': {'learning_rate': 0.05}, 'RandomForestGini': {'n_estimators': 300, 'max_leaf_nodes': 15000, 'n_jobs': -1, 'random_state': 0, 'bootstrap': True, 'criterion': 'gini'}, 'RandomForestEntr': {'n_estimators': 300, 'max_leaf_nodes': 15000, 'n_jobs': -1, 'random_state': 0, 'bootstrap': True, 'criterion': 'entropy'}, 'CatBoost': {'iterations': 10000, 'learning_rate': 0.05, 'random_seed': 0, 'allow_writing_files': False, 'eval_metric': 'Logloss'}, 'ExtraTreesGini': {'n_estimators': 300, 'max_leaf_nodes': 15000, 'n_jobs': -1, 'random_state': 0, 'bootstrap': True, 'criterion': 'gini'}, 'ExtraTreesEntr': {'n_estimators': 300, 'max_leaf_nodes': 15000, 'n_jobs': -1, 'random_state': 0, 'bootstrap': True, 'criterion': 'entropy'}, 'NeuralNetFastAI': {'layers': None, 'emb_drop': 0.1, 'ps': 0.1, 'bs': 'auto', 'lr': 0.01, 'epochs': 'auto', 'early.stopping.min_delta': 0.0001, 'early.stopping.patience': 20, 'smoothing': 0.0}, 'XGBoost': {'n_estimators': 10000, 'learning_rate': 0.1, 'n_jobs': -1, 'proc.max_category_levels': 100, 'objective': 'binary:logistic', 'booster': 'gbtree'}, 'NeuralNetTorch': {'num_epochs': 1000, 'epochs_wo_improve': None, 'activation': 'relu', 'embedding_size_factor': 1.0, 'embed_exponent': 0.56, 'max_embedding_dim': 100, 'y_range': None, 'y_range_extend': 0.05, 'dropout_prob': 0.1, 'optimizer': 'adam', 'learning_rate': 0.0003, 'weight_decay': 1e-06, 'proc.embed_min_categories': 4, 'proc.impute_strategy': 'median', 'proc.max_category_levels': 100, 'proc.skew_threshold': 0.99, 'use_ngram_features': False, 'num_layers': 4, 'hidden_size': 128, 'max_batch_size': 512, 'use_batchnorm': False, 'loss_function': 'auto'}, 'LightGBMLarge': {'learning_rate': 0.03, 'num_leaves': 128, 'feature_fraction': 0.9, 'min_data_in_leaf': 3}, 'WeightedEnsemble_L2': {'use_orig_features': False, 'valid_stacker': True, 'max_base_models': 0, 'max_base_models_per_type': 'auto', 'save_bag_folds': True, 'stratify': 'auto', 'bin': 'auto', 'n_bins': None}}, 'leaderboard':                   model  score_val eval_metric  pred_time_val   fit_time  \
+0   WeightedEnsemble_L2   0.890514     roc_auc       0.022843  10.277859   
+1        NeuralNetTorch   0.890119     roc_auc       0.016704   9.675020   
+2       NeuralNetFastAI   0.876548     roc_auc       0.015804   2.470395   
+3              CatBoost   0.871278     roc_auc       0.004809   1.948542   
+4              LightGBM   0.837681     roc_auc       0.005492   0.536169   
+5            LightGBMXT   0.830303     roc_auc       0.006751   9.519198   
+6      RandomForestEntr   0.828327     roc_auc       0.089468   1.008750   
+7        ExtraTreesEntr   0.828195     roc_auc       0.100633   0.849919   
+8      RandomForestGini   0.825823     roc_auc       0.101521   1.512228   
+9        ExtraTreesGini   0.824901     roc_auc       0.088923   0.820775   
+10        LightGBMLarge   0.819895     roc_auc       0.005488   0.932121   
+11              XGBoost   0.816535     roc_auc       0.007794   0.743881   
+
+    pred_time_val_marginal  fit_time_marginal  stack_level  can_infer  \
+0                 0.000646           0.066670            2       True   
+1                 0.016704           9.675020            1       True   
+2                 0.015804           2.470395            1       True   
+3                 0.004809           1.948542            1       True   
+4                 0.005492           0.536169            1       True   
+5                 0.006751           9.519198            1       True   
+6                 0.089468           1.008750            1       True   
+7                 0.100633           0.849919            1       True   
+8                 0.101521           1.512228            1       True   
+9                 0.088923           0.820775            1       True   
+10                0.005488           0.932121            1       True   
+11                0.007794           0.743881            1       True   
+
+    fit_order  
+0          12  
+1          10  
+2           8  
+3           5  
+4           2  
+5           1  
+6           4  
+7           7  
+8           3  
+9           6  
+10         11  
+11          9  }
+\npredictor_advanced = TabularPredictor(\n    label=TARGET_COLUMN,\n    eval_metric='roc_auc',  # Optimal pour classification binaire\n    path='./autogluon_models_advanced'\n).fit(\n    train_data=train_data,\n    time_limit=3600,  # 1 heure\n    presets='best_quality',\n\n    # Hyperparamètres personnalisés (optionnel)\n    hyperparameters={\n        'GBM': {},  # LightGBM\n        'CAT': {},  # CatBoost\n        'XGB': {},  # XGBoost\n        'RF': {},   # Random Forest\n        'NN_TORCH': {},  # Réseau de neurones\n    },\n\n    # Validation croisée pour plus de robustesse\n    num_bag_folds=5,  # 5-fold bagging\n    num_bag_sets=1,\n    num_stack_levels=1,  # Stacking de modèles\n\n    # Autres options utiles\n    auto_stack=True,\n    excluded_model_types=['KNN'],  # Exclure certains modèles\n)\n
