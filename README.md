@@ -4,7 +4,7 @@ My submission for the **Titanic Challenge** on Kaggle, where I explored two ML m
 
 - Best result: Using AutoGluon’s *best quality* mode → **0.890514** (ROC-AUC metric) and **0.78947** on Kaggle (vs **0.76315** with the *medium* mode)  
 - **Rank:** 1303rd out of 14,661 participants  
-- Process: Data preprocessing, feature engineering, various encoding techniques, and hyperparameter optimization  
+- Data preprocessing, feature engineering, various encoding techniques, and hyperparameter optimization  
 - Includes commented scripts, outputs, CSV files, and a Typst document summarizing my notes and learnings  
 
 ### Note  
